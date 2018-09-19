@@ -1,0 +1,306 @@
+get a deck of cards
+
+shuffle the cards
+
+deals two cards to the house first - one face up, one face down
+
+deal two cards to player - face up
+
+player decides to hit or stay 
+
+if they hit,
+    the next random card in the deck will be added to player hand
+    did player total bust?
+        if so, game over
+        otherwise, they could hit or stay
+if they stay
+    dealer reveals hidden card
+        if the value of their hand is less than 17, they keep hitting
+        if the value of their hand is more than 21, they bust
+
+deck of cards to be an array
+    each element of the array is a card
+        card = object
+            attributes of object = suit, value
+
+
+
+
+
+const dealCardToDealer = upOrDown => {
+  // Take one card from the deck
+  let card = deck.pop();
+
+  // Place that card in the player's hand
+  dealerHand.push(card);
+
+  // Go find my player-hand div
+  const dealerHandDiv = document.querySelector(".dealer-hand");
+
+  // Make a new image tag in memory
+  let image = document.createElement("img");
+
+  // Tell that image tag where it's image is. We do this dynamically
+  // based on the face and the suit
+  image.src = `/images/${card.face}${card.suit}.jpg`;
+
+  if (upOrDown === "down") {
+    // Do something to display this card down
+    image.src = `/images/Red_back.jpg`;
+  }
+
+  // Push that image tag into the DIV as a child
+  dealerHandDiv.appendChild(image);
+};
+
+const dealCardToPlayer = upOrDown => {
+  // Take one card from the deck
+  let card = deck.pop();
+
+  // Place that card in the player's hand
+  playerHand.push(card);
+
+  // Go find my player-hand div
+  const playerHandDiv = document.querySelector(".player-hand");
+
+  // Make a new image tag in memory
+  let image = document.createElement("img");
+
+  // Tell that image tag where it's image is. We do this dynamically
+  // based on the face and the suit
+  image.src = `/images/${card.face}${card.suit}.jpg`;
+
+  if (upOrDown === "down") {
+    // Do something to display this card down
+    image.src = `/images/Red_back.jpg`;
+  }
+
+  // Push that image tag into the DIV as a child
+  playerHandDiv.appendChild(image);
+};
+const main = () => {
+  let suits = ["C", "S", "D", "H"];
+  let cards = [
+    { value: 2, face: "2" },
+    { value: 3, face: "3" },
+    { value: 4, face: "4" },
+    { value: 5, face: "5" },
+    { value: 6, face: "6" },
+    { value: 7, face: "7" },
+    { value: 8, face: "8" },
+    { value: 9, face: "9" },
+    { value: 10, face: "10" },
+    { value: 10, face: "J" },
+    { value: 10, face: "Q" },
+    { value: 10, face: "K" },
+    { value: 11, face: "A" }
+  ];
+
+  // loop through all the suits
+  suits.forEach(suit => {
+    // Do this for each suit
+
+    // For this suit go through the cards
+    cards.forEach(card => {
+      // make a new card to put in the deck
+      let newCardForTheDeck = {
+        suit: suit,
+        value: card.value,
+        face: card.face
+      };
+
+      // add it to the deck
+      deck.push(newCardForTheDeck);
+    });
+  });
+
+  // Shuffle the deck into a random order
+  //
+  // Uses [Fisher–Yates shuffle](https://en.wikipedia.org/wiki/Fisher–Yates_shuffle)
+  for (let i = 52 - 1; i > 1; i -= 1) {
+    let j = Math.floor(Math.random() * i);
+    let firstCard = deck[i];
+    let secondCard = deck[j];
+    deck[i] = secondCard;
+    deck[j] = firstCard;
+  }
+
+  dealCardToPlayer("up");
+  dealCardToPlayer("up");
+  dealCardToDealer("up");
+  dealCardToDealer("down");
+  document.querySelector("button").addEventListener("click", dealCardToPlayer);
+
+  document.querySelector(".new-game").addEventListener("click", () => {
+    document.location = "/";
+  });
+};
+
+document.addEventListener("DOMContentLoaded", main);
+
+
+
+let playerHand = [];
+let dealerHand = [];
+let deck = [];
+let playerCount = [0];
+
+const dealCardToDealer = upOrDown => {
+  // Take one card from the deck
+  let card = deck.pop();
+
+  // Place that card in the player's hand
+  dealerHand.push(card);
+
+  // Go find my player-hand div
+  const dealerHandDiv = document.querySelector(".dealer-hand");
+
+  // Make a new image tag in memory
+  let image = document.createElement("img");
+
+  // Tell that image tag where it's image is. We do this dynamically
+  // based on the face and the suit
+  image.src = `/images/${card.face}${card.suit}.jpg`;
+
+  if (upOrDown === "down") {
+    // Do something to display this card down
+    image.src = `/images/Red_back.jpg`;
+    image.className = "swing";
+  }
+
+  // Push that image tag into the DIV as a child
+  dealerHandDiv.appendChild(image);
+};
+
+const dealCardToPlayer = upOrDown => {
+  // Take one card from the deck
+  let card = deck.pop();
+
+  // Place that card in the player's hand
+  playerHand.push(card);
+
+  // Go find my player-hand div
+  const playerHandDiv = document.querySelector(".player-hand");
+
+  // Make a new image tag in memory
+  let image = document.createElement("img");
+
+  // Tell that image tag where it's image is. We do this dynamically
+  // based on the face and the suit
+  image.src = `/images/${card.face}${card.suit}.jpg`;
+
+  if (upOrDown === "down") {
+    // Do something to display this card down
+    image.src = `/images/Red_back.jpg`;
+  }
+
+  // Push that image tag into the DIV as a child
+  playerHandDiv.appendChild(image);
+};
+const main = () => {
+  let suits = ["C", "S", "D", "H"];
+  let cards = [
+    { value: 2, face: "2" },
+    { value: 3, face: "3" },
+    { value: 4, face: "4" },
+    { value: 5, face: "5" },
+    { value: 6, face: "6" },
+    { value: 7, face: "7" },
+    { value: 8, face: "8" },
+    { value: 9, face: "9" },
+    { value: 10, face: "10" },
+    { value: 10, face: "J" },
+    { value: 10, face: "Q" },
+    { value: 10, face: "K" },
+    { value: 11, face: "A" }
+  ];
+
+  // loop through all the suits
+  suits.forEach(suit => {
+    // Do this for each suit
+
+    // For this suit go through the cards
+    cards.forEach(card => {
+      // make a new card to put in the deck
+      let newCardForTheDeck = {
+        suit: suit,
+        value: card.value,
+        face: card.face
+      };
+
+      // add it to the deck
+      deck.push(newCardForTheDeck);
+    });
+  });
+
+  // Shuffle the deck into a random order
+  //
+  // Uses [Fisher–Yates shuffle](https://en.wikipedia.org/wiki/Fisher–Yates_shuffle)
+  for (let i = 52 - 1; i > 1; i -= 1) {
+    let j = Math.floor(Math.random() * i);
+    let firstCard = deck[i];
+    let secondCard = deck[j];
+    deck[i] = secondCard;
+    deck[j] = firstCard;
+  }
+
+  dealCardToPlayer("up");
+  dealCardToPlayer("up");
+  dealCardToDealer("up");
+  dealCardToDealer("down");
+  document.querySelector("button").addEventListener("click", dealCardToPlayer);
+  document.querySelector("button").addEventListener("click", dealCardToPlayer);
+
+  document.querySelector(".new-game").addEventListener("click", () => {
+    document.location = "/";
+  });
+};
+
+document.addEventListener("DOMContentLoaded", main);
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blackjack</title>
+  <link rel="stylesheet" href="/screen.css">
+</head>
+
+<body>
+  <header class="header">
+    <h1>Blackem' Jackem'</h1>
+  </header>
+
+  <h1>Player Hand</h1>
+  <div class='player-hand'>
+  </div>
+
+  <h2>Value</h2>
+
+  <div class="buttons">
+    <button>Player Hits</button>
+  </div>
+
+
+  <h1>Dealers Hand</h1>
+  <div class='dealer-hand'>
+  </div>
+
+  <h2>Value</h2>
+
+  <div class="buttons1">
+    <button>Dealer Hits</button>
+  </div>
+
+
+
+  <button class='new-game'>New Game</button>
+
+  <script src="/main.js" charset="utf-8"></script>
+</body>
+
+</html>
